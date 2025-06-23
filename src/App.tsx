@@ -9,26 +9,61 @@ import PersonalizedPlan from "./pages/PersonalizedPlan";
 import FinalizeMeals from "./pages/FinalizeMeals";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
-
+import { AuthProvider } from "./hooks/useAuth";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
+import Auth from "./pages/Auth";
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        {/* Define all routes here */}
-        <Route path="/" element={<Home />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/meals" element={<Meals />} />
-        <Route path="/plan" element={<Plan />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/enter-details" element={<EnterDetails />} />
-        <Route path="/personalized-plan" element={<PersonalizedPlan />} />
-        <Route path="/finalize-meals" element={<FinalizeMeals />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          {/* Define all routes here */}
+          <Route path="/" element={<Home />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/meals" element={<Meals />} />
+          <Route path="/plan" element={<Plan />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/enter-details"
+            element={
+              <ProtectedRoute>
+                <EnterDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/personalized-plan"
+            element={
+              <ProtectedRoute>
+                <PersonalizedPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/finalize-meals"
+            element={
+              <ProtectedRoute>
+                <FinalizeMeals />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* IMPORTANT: DO NOT place any routes below this. */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          {/* IMPORTANT: DO NOT place any routes below this. */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -295,7 +295,7 @@ export default function FinalizeMeals() {
         ))}
 
         {/* Footer */}
-        <div className="flex justify-between items-center mt-12">
+        {/* <div className="flex justify-between items-center mt-12">
           <button
             onClick={() => {
               setActiveDay((activeDay + 1) % 7);
@@ -313,6 +313,41 @@ export default function FinalizeMeals() {
                 JSON.stringify(weeklyMeals)
               );
               localStorage.setItem("zigzagPlan", JSON.stringify(targets));
+              navigate("/plan");
+            }}
+            className={`px-6 py-3 rounded-lg font-semibold transition ${
+              allDaysSelected
+                ? "bg-red-500 hover:bg-red-600 text-white"
+                : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            Continue to Pricing
+          </button>
+        </div> */}
+
+        {/* Footer */}
+        <div className="flex justify-between items-center mt-12">
+          <button
+            onClick={() => {
+              setActiveDay((activeDay + 1) % 7);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="bg-orange-100 hover:bg-orange-200 text-orange-700 px-6 py-3 rounded-lg font-semibold"
+          >
+            Next Day →
+          </button>
+
+          <button
+            disabled={!allDaysSelected}
+            onClick={() => {
+              // ✅ Save weekly meals and zigzag plan to localStorage
+              localStorage.setItem(
+                "selectedWeeklyMeals",
+                JSON.stringify(weeklyMeals)
+              );
+              localStorage.setItem("zigzagPlan", JSON.stringify(targets));
+
+              // Navigate to plan selection page
               navigate("/plan");
             }}
             className={`px-6 py-3 rounded-lg font-semibold transition ${
